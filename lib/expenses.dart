@@ -1,14 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:expense_tracker/models/expenses.dart';
 
-class Expenses extends StatefulWidget {
-  const Expenses({super.key});
+class ExpensesScreen extends StatefulWidget {
+  const ExpensesScreen({Key? key}) : super(key: key);
+
   @override
-  State<Expenses> createState() {
-    return _Expenses();
-  }
+  _ExpensesScreenState createState() => _ExpensesScreenState();
 }
 
-class _Expenses extends State<Expenses> {
+class _ExpensesScreenState extends State<ExpensesScreen> {
+  final List<Expense> _registeredExpenses = [
+    Expense(
+        title: 'Flutter',
+        amount: 19.99,
+        date: DateTime.now(),
+        category: Category.work),
+    Expense(
+        title: 'cenima',
+        amount: 69.99,
+        date: DateTime.now(),
+        category: Category.leisure),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
