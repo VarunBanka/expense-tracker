@@ -10,17 +10,49 @@ class NewExpense extends StatefulWidget {
 }
 
 class _NewExpense extends State<NewExpense> {
+  final _titleCrontroller = TextEditingController();
+  final _amountCrontroller = TextEditingController();
+
+  @override
+  void dispose() {
+    _titleCrontroller.dispose();
+    _amountCrontroller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16),
+    return Padding(
+      padding: const EdgeInsets.all(16),
       child: Column(
         children: [
           TextField(
+            controller: _titleCrontroller,
             maxLength: 50,
             keyboardType: TextInputType.text,
-            decoration: InputDecoration(label: Text("Title")),
+            decoration: const InputDecoration(label: Text("Title")),
           ),
+          TextField(
+            controller: _amountCrontroller,
+            maxLength: 10,
+            keyboardType: TextInputType.number,
+            decoration:
+                const InputDecoration(prefixText: "\$", label: Text("Amount")),
+          ),
+          Row(
+            children: [
+              TextButton(
+                onPressed: () {},
+                child: const Text("Cancel"),
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    print(_titleCrontroller
+                        .text); // ik this isnt what i should do
+                  },
+                  child: const Text("Save"))
+            ],
+          )
         ],
       ),
     );
