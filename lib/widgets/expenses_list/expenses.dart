@@ -7,10 +7,10 @@ class ExpensesScreen extends StatefulWidget {
   const ExpensesScreen({Key? key}) : super(key: key);
 
   @override
-  _ExpensesScreenState createState() => _ExpensesScreenState();
+  ExpensesScreenState createState() => ExpensesScreenState();
 }
 
-class _ExpensesScreenState extends State<ExpensesScreen> {
+class ExpensesScreenState extends State<ExpensesScreen> {
   final List<Expense> _registeredExpenses = [
     Expense(
         title: 'Flutter',
@@ -26,8 +26,25 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
+      isScrollControlled: true,
       context: context,
-      builder: (ctx) => const NewExpense(),
+      builder: (ctx) => NewExpense(onAddExpense: _addExpens),
+    );
+  }
+
+  void _addExpens(Expense expense) {
+    setState(
+      () {
+        _registeredExpenses.add(expense);
+      },
+    );
+  }
+
+  void _removeExpense(Expense expense) {
+    setState(
+      () {
+        _registeredExpenses.remove(expense);
+      },
     );
   }
 
@@ -47,7 +64,10 @@ class _ExpensesScreenState extends State<ExpensesScreen> {
         children: [
           const Text("The chart"),
           Expanded(
-            child: ExpensesList(expenseses: _registeredExpenses),
+            child: ExpensesList(
+              expenseses: _registeredExpenses,
+              onRemove: _removeExpense,
+            ),
           ),
         ],
       ),
